@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instacart Fresh Market</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="navbar">
+        <div class="nav-left">
+            <span class="logo">Instacart</span>
+        </div>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search groceries...">
+            <button id="searchBtn">Search</button>
+        </div>
+        <div class="nav-right">
+            <button class="nav-btn" id="openOrdersBtn">Orders</button>
+            <button class="nav-btn" id="openChatBtn">Support Chat</button>
+            <button class="cart-btn" id="openCartBtn">
+                Cart (<span id="cartCount">0</span>)
+            </button>
+        </div>
+    </header>
+
+    <!-- Native Dropdown Notification in Navbar Area -->
+    <div id="custom-notification" class="notification-toast hidden">
+        <div class="notification-content">
+            <span class="success-icon">✓</span>
+            <div class="notification-text">
+                <h4 id="notification-title">Order placed successfully.</h4>
+                <p id="notification-desc">Your cart has been reset.</p>
+            </div>
+            <button onclick="closeNotification()" class="close-toast-btn">&times;</button>
+        </div>
+    </div>
+
+    <nav class="categories-bar" id="categoriesBar">
+        <button class="cat-pill active" onclick="loadTrending()">Popular Items</button>
+    </nav>
+
+    <main class="main-container">
+        <!-- Center Product Feed -->
+        <section class="products-section">
+            <div class="section-header">
+                <h2 id="sectionTitle">Popular Items</h2>
+            </div>
+            <div class="products-grid" id="productsGrid">
+                <!-- Injected via JavaScript -->
+            </div>
+        </section>
+
+        <!-- Right Side Panel -->
+        <aside class="sidebar">
+            <div class="card">
+                <h3>Recommended For You</h3>
+                <p class="card-subtitle">Based on your past purchases</p>
+                <div class="rec-list" id="personalizedRecs">
+                    <p class="empty-state">Add items to view recommendations.</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="fbt-header-flex">
+                   <h3>Frequently Bought Together</h3>
+                   <span id="fbtBundlePrice" class="bundle-price"></span>
+                </div>
+                <p class="card-subtitle">Pairs well with your current cart</p>
+                <button id="addAllFbtBtn" class="add-all-btn" onclick="addAllFbtToCart()">+ Add All to Cart</button>
+                <div class="rec-list" id="basketComplements">
+                    <p class="empty-state">Cross-sell items will appear here.</p>
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <!-- UI Overlay -->
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+
+    <!-- Slide-in Orders Drawer -->
+    <div class="side-drawer" id="ordersDrawer">
+        <div class="drawer-header">
+            <h3>Your Orders</h3>
+            <button class="close-btn" id="closeOrdersBtn">&times;</button>
+        </div>
+        <div class="cart-items" id="ordersItemsList">
+            <p class="empty-state">You have no active orders.</p>
+        </div>
+        <div class="drawer-footer">
+            <button class="checkout-btn" id="cancelOrderBtn" style="background: #e53935; display: none;" onclick="cancelOrder()">Cancel Active Order</button>
+        </div>
+    </div>
+
+    <!-- Slide-in Cart Drawer -->
+    <div class="side-drawer" id="cartDrawer">
+        <div class="drawer-header">
+            <h3>Your Shopping Cart</h3>
+            <button class="close-btn" id="closeCartBtn">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItemsList">
+            <div class="empty-state-wrapper" id="cartEmptyState">
+                <p class="empty-state">Your cart is currently empty.</p>
+                <button class="shop-now-btn" onclick="closeCartAndShop()">Shop Trending Items</button>
+            </div>
+        </div>
+        <div class="drawer-footer">
+            <button class="checkout-btn" id="checkoutBtn" onclick="checkout()">Checkout Order</button>
+        </div>
+    </div>
+
+    <!-- Slide-in Chat Drawer -->
+    <div class="side-drawer" id="chatDrawer">
+        <div class="drawer-header">
+            <h3>Customer Support</h3>
+            <button class="close-btn" id="closeChatBtn">&times;</button>
+        </div>
+        <div class="chat-box" id="chatBox">
+            <div class="bot-msg">Hello. Ask me about tracking your order, cancelling or changing items, or payments and receipts.</div>
+        </div>
+        <div class="drawer-footer chat-input-wrapper">
+            <input type="text" id="chatInput" placeholder="Type your message...">
+            <button id="chatSendBtn">Send</button>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>
